@@ -13,7 +13,7 @@
 		<g:hiddenField name="id" value="${params.id}"/>
 		<g:textField name="name" value="${school?.name}" placeholder="School" autofocus="true"/>
 
-		<g:submitButton name="send" value="Create school"/>
+		<g:submitButton name="send" value="Update school"/>
 		<g:link action="list">Schools list</g:link>
 	</g:form>
 </body>
