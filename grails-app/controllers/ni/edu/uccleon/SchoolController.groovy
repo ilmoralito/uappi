@@ -52,8 +52,15 @@ class SchoolController {
     		response.sendError 404
     	}
 
+        def acronym = schoolService.getSchoolNameAcronym(params?.name)
+
     	school.name = params?.name
-        school.acronym = schoolService.getSchoolNameAcronym(params?.name)
+
+        if (school.isDirty("name")) {
+            school.acronym = acronym
+        } else {
+            school.acronym = (params?.acronym == acronym) ? acronym : params?.acronym
+        }
 
     	if (!school.save()) {
     		render view:"show", model:[school:school, id:id]
