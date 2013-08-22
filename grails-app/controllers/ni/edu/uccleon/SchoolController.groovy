@@ -2,6 +2,8 @@ package ni.edu.uccleon
 
 class SchoolController {
 
+    def schoolService
+
     static defaultAction = "list"
     static allowedMethods = [
     	"list":"GET",
@@ -17,7 +19,10 @@ class SchoolController {
 
     def create() {
     	if (request.method == "POST") {
-   			def school = new School(params)
+   			def school = new School(
+                name:params?.name,
+                acronym:schoolService.getSchoolNameAcronym(params?.name)
+            )
 
    			if (!school.save()) {
    				return [school:school]
@@ -47,7 +52,8 @@ class SchoolController {
     		response.sendError 404
     	}
 
-    	school.properties["name"] = params
+    	school.name = params?.name
+        school.acronym = schoolService.getSchoolNameAcronym(params?.name)
 
     	if (!school.save()) {
     		render view:"show", model:[school:school, id:id]
