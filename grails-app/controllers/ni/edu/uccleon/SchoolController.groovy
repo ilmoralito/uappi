@@ -5,7 +5,9 @@ class SchoolController {
     static defaultAction = "list"
     static allowedMethods = [
     	"list":"GET",
-    	"create":["GET", "POST"]
+    	"create":["GET", "POST"],
+    	"show":"GET",
+    	"update":"POST"
     ]
 
     def list() {
@@ -25,6 +27,35 @@ class SchoolController {
     	} else {
     		return [school:new School(params)]
     	}
+    }
+
+    def show(Integer id) {
+    	def school = School.get(id)
+
+    	if (!school) {
+    		response.sendError 404
+    	}
+
+    	[school:school]
+    }
+
+    def update(Integer id) {
+    	def school = School.get(id)
+
+    	if (!school) {
+    		response.sendError 404
+    	}
+
+    	school.properties["name"] = params
+
+    	if (!school.save()) {
+    		render view:"show", model:[school:school, id:id]
+    		return false
+    	}
+
+    	flash.message = "school.updated"
+
+    	redirect action:"show", params:[id:id]
     }
 
 }

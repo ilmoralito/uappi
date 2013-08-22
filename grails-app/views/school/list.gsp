@@ -15,7 +15,7 @@
 			<tbody>
 				<g:each in="${schools}" var="school">
 					<tr>
-						<td>${school.name}</td>
+						<td><g:link action="show" params="[id:school.id]">${school.name}</g:link></td>
 					</tr>
 				</g:each>
 			</tbody>
