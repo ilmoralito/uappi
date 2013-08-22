@@ -1,3 +1,8 @@
+import org.cloudfoundry.runtime.env.CloudEnvironment
+import org.cloudfoundry.runtime.env.RdbmsServiceInfo
+
+def cloudEnv = new CloudEnvironment()
+
 dataSource {
     pooled = true
     driverClassName = "org.h2.Driver"
@@ -26,7 +31,15 @@ environments {
     production {
         dataSource {
             dbCreate = "update"
-            url = "jdbc:h2:prodDb;MVCC=TRUE;LOCK_TIMEOUT=10000"
+            if (cloudEnv.isCloudFoundry()) {
+              driverClassName = 'com.mysql.jdbc.Driver'
+              def dbInfo = cloudEnv.getServiceInfo('uccleonapi', RdbmsServiceInfo.class)
+              url = dbInfo.url
+              username = dbInfo.userName
+              password = dbInfo.password
+            } else {
+              url = "jdbc:h2:prodDb;MVCC=TRUE;LOCK_TIMEOUT=10000"
+            }
             pooled = true
             properties {
                maxActive = -1

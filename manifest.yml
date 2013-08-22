@@ -1,0 +1,14 @@
+---
+applications:
+- name: uccleonapi
+  memory: 512M
+  instances: 1
+  host: uccleonapi
+  domain: cfapps.io
+  path: target/uccleonapi-0.1.war
+  services:
+    uccleonapi:
+      label: cleardb
+      provider: cleardb
+      version: n/a
+      plan: spark
