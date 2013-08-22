@@ -7,7 +7,8 @@ class SchoolController {
     	"list":"GET",
     	"create":["GET", "POST"],
     	"show":"GET",
-    	"update":"POST"
+    	"update":"POST",
+    	"delete":["GET", "DELETE"]
     ]
 
     def list() {
@@ -56,6 +57,19 @@ class SchoolController {
     	flash.message = "school.updated"
 
     	redirect action:"show", params:[id:id]
+    }
+
+    def delete() {
+    	def school = School.findByName(params.name)
+
+    	if (!school) {
+    		response.sendError 404
+    	}
+
+    	school.delete()
+
+    	flash.message = "school.deleted"
+    	redirect action:"list"
     }
 
 }

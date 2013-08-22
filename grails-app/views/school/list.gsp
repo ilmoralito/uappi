@@ -11,11 +11,13 @@
 		<table class="table">
 			<thead>
 				<th>School</th>
+				<th></th>
 			</thead>
 			<tbody>
 				<g:each in="${schools}" var="school">
 					<tr>
 						<td><g:link action="show" params="[id:school.id]">${school.name}</g:link></td>
+						<td><g:link action="delete" params="[name:school.name]">Delete</g:link></td>
 					</tr>
 				</g:each>
 			</tbody>
