@@ -1,4 +1,11 @@
 @artifact.package@class @artifact.name@ {
 
-    def index() { }
+    static defaultAction = "actionName"
+    static allowedMethods = [
+    	"actionName":"GET"
+    ]
+
+    def actionName() {
+
+    }
 }
