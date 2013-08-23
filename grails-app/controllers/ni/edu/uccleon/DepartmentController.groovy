@@ -7,6 +7,8 @@ class DepartmentController {
     	"list":"GET",
     	"create":["GET", "POST"],
     	"edit":"GET",
+        "update":"POST",
+        "show":"GET",
     	"delete":["GET", "DELETE"]
     ]
 
@@ -54,6 +56,16 @@ class DepartmentController {
 
     	flash.message = "department.updated"
     	redirect action:"edit", params:[id:id]
+    }
+
+    def show(Integer id) {
+        def department = Department.get(id)
+
+        if (!department) {
+            response.sendError 404
+        }
+
+        [department:department]
     }
 
     def delete(Integer id) {
