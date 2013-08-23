@@ -33,7 +33,7 @@
 					<tr>
 						<td>${member.name}</td>
 						<td>${member.position}</td>
-						<td><g:link controller="member" action="delete" params="[id:member.id]">Delete</g:link></td>
+						<td><g:link controller="member" action="delete" params="[id:member.id, department:department.id]">Delete</g:link></td>
 					</tr>
 				</g:each>
 			</tbody>

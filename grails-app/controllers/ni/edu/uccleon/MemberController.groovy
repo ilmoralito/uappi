@@ -4,7 +4,8 @@ class MemberController {
 
     //static defaultAction = "actionName"
     static allowedMethods = [
-    	"create":"POST"
+    	"create":"POST",
+        "delete":["GET", "DELETE"]
     ]
 
     def create(Integer id) {
@@ -22,4 +23,18 @@ class MemberController {
 
     	redirect controller:"department", action:"show", params:[id:params.id]
     }
+
+    def delete(Integer id, Integer department) {
+        def member = Member.get(id)
+
+        if (!member) {
+            response.sendError 404
+        }
+
+        member.delete()
+        flash.message = "member.deleted"
+
+        redirect controller:"department", action:"show", params:[id:department]
+    }
+
 }
