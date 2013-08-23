@@ -4,7 +4,8 @@ class DepartmentController {
 
     static defaultAction = "list"
     static allowedMethods = [
-    	"list":["GET", "POST"]
+    	"list":["GET", "POST"],
+    	"delete":["GET", "DELETE"]
     ]
 
     def list() {
@@ -20,4 +21,18 @@ class DepartmentController {
 
     	[departments:Department.list(params)]
     }
+
+    def delete(Integer id) {
+    	def department = Department.get(id)
+
+    	if (!department) {
+    		response.sendError 404
+    	}
+
+    	department.delete()
+    	flash.message = "department.deleted"
+
+    	redirect action:"list"
+    }
+
 }
