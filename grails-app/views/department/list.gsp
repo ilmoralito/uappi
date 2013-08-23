@@ -14,13 +14,15 @@
 				<th>Manager</th>
 				<th>Extention</th>
 				<th></th>
+				<th></th>
 			</thead>
 			<tbody>
 				<g:each in="${departments}" var="department">
 					<tr>
-						<td><g:link action="edit" id="${department.id}">${department.name}</g:link></td>
+						<td><g:link action="show" id="${department.id}">${department.name}</g:link></td>
 						<td>${department.manager}</td>
 						<td>${department.extention}</td>
+						<td><g:link action="edit" id="${department.id}">Edit</g:link></td>
 						<td><g:link action="delete" id="${department.id}">Delete</g:link></td>
 					</tr>
 				</g:each>
