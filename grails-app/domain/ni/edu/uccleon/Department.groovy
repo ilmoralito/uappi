@@ -12,7 +12,7 @@ class Department {
     static constraints = {
         name blank:false, unique:true
         manager blank:false
-        extention blank:false
+        extention blank:false, unique:true
     }
 
     static mapping = {
