@@ -16,7 +16,7 @@
 			<tbody>
 				<g:each in="${departments}" var="department">
 					<tr>
-						<td>${department.name}</td>
+						<td><g:link action="edit" id="${department.id}">${department.name}</g:link></td>
 						<td><g:link action="delete" id="${department.id}">Delete</g:link></td>
 					</tr>
 				</g:each>

@@ -6,6 +6,7 @@ class DepartmentController {
     static allowedMethods = [
     	"list":"GET",
     	"create":["GET", "POST"],
+    	"edit":"GET",
     	"delete":["GET", "DELETE"]
     ]
 
@@ -25,6 +26,34 @@ class DepartmentController {
     	} else {
     		return [department:new Department(params)]
     	}
+    }
+
+    def edit(Integer id) {
+    	def department = Department.get(id)
+
+    	if (!department) {
+    		response.sendError 404
+    	}
+
+    	[department:department]
+    }
+
+    def update(Integer id) {
+    	def department = Department.get(id)
+
+    	if (!department) {
+    		response.sendError 404
+    	}
+
+    	department.properties = params
+
+    	if (!department.save()) {
+    		render view:"edit", model:[department:department, id:id]
+    		return false
+    	}
+
+    	flash.message = "department.updated"
+    	redirect action:"edit", params:[id:id]
     }
 
     def delete(Integer id) {
