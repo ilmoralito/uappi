@@ -5,7 +5,8 @@ class ClassroomController {
     static defaultAction = "list"
     static allowedMethods = [
     	"list":"GET",
-    	"create":["GET", "POST"]
+    	"create":["GET", "POST"],
+    	"delete":["GET", "DELETE"]
     ]
 
     def list() {
@@ -24,6 +25,19 @@ class ClassroomController {
     	} else {
     		return [classroom:new Classroom(params)]
     	}
+    }
+
+    def delete(Integer id) {
+    	def classroom = Classroom.get(id)
+
+    	if (!classroom) {
+    		response.sendError 404
+    	}
+
+    	classroom.delete()
+    	flash.message = "classroom.deleted"
+
+    	redirect action:"list"
     }
 
 }
