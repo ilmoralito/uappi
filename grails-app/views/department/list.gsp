@@ -5,6 +5,11 @@
 	<title>Departamentos</title>
 </head>
 <body>
+
+	<g:hasErrors bean="${department}">
+		<g:renderErrors bean="${department}"/>
+	</g:hasErrors>
+
 	<g:form action="list">
 		<g:textField name="name" value="${department?.name}" placeholder="Department name" autofocus="true"/>
 		<g:submitButton name="send" value="Create department"/>
