@@ -19,6 +19,8 @@ class Department {
     	version false
     }
 
+    static hasMany = [members:Member]
+
     String toString() {
         name
     }
