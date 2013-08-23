@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
+	<meta name="layout" content="main">
 	<title>Edit department</title>
 </head>
 <body>
