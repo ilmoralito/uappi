@@ -18,7 +18,7 @@
 	<strong>Department extention</strong>
 	${department.extention}
 
-	<br><br>
+	<br>
 
 	<g:if test="${department?.members}">
 		<h4>Members</h4>
@@ -26,11 +26,13 @@
 			<thead>
 				<th>Name</th>
 				<th></th>
+				<th></th>
 			</thead>
 			<tbody>
 				<g:each in="${department.members}" var="member">
 					<tr>
 						<td>${member.name}</td>
+						<td>${member.position}</td>
 						<td><g:link controller="member" action="delete" params="[id:member.id]">Delete</g:link></td>
 					</tr>
 				</g:each>
@@ -38,7 +40,14 @@
 		</table>
 	</g:if>
 
+	<br>
+
+	<g:hasErrors bean="${member}">
+		<g:renderErrors bean="${member}"/>
+	</g:hasErrors>
+
 	<g:form controller="member" action="create">
+		<g:hiddenField name="id" value="${params.id}"/>
 		<g:textField name="name" value="${member?.name}" placeholder="Member name" autofocus="true"/>
 		<g:textField name="position" value="${member?.position}" placeholder="Member position"/>
 
