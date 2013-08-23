@@ -4,22 +4,27 @@ class DepartmentController {
 
     static defaultAction = "list"
     static allowedMethods = [
-    	"list":["GET", "POST"],
+    	"list":"GET",
+    	"create":["GET", "POST"],
     	"delete":["GET", "DELETE"]
     ]
 
     def list() {
+    	[departments:Department.list(params)]
+    }
+
+    def create() {
     	if (request.method == "POST") {
     		def department = new Department(params)
 
     		if (!department.save()) {
-    			return [department:department, departments:Department.list(params)]
+    			return [department:department]
     		}
 
     		flash.message = "department.created"
+    	} else {
+    		return [department:new Department(params)]
     	}
-
-    	[departments:Department.list(params)]
     }
 
     def delete(Integer id) {
