@@ -1,5 +1,7 @@
 package ni.edu.uccleon
 
+import grails.converters.JSON
+
 class ClassroomController {
 
     static defaultAction = "list"
@@ -10,7 +12,15 @@ class ClassroomController {
     ]
 
     def list() {
-    	[classrooms:Classroom.list(params)]
+        withFormat {
+            html {
+                return [classrooms:Classroom.list(params)]
+            }
+
+            json {
+                render Classroom.list() as JSON
+            }
+        }
     }
 
     def create() {
