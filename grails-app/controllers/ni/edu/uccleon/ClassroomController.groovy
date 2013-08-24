@@ -1,6 +1,6 @@
 package ni.edu.uccleon
 
-import grails.converters.JSON
+import grails.plugin.gson.converters.GSON
 
 class ClassroomController {
 
@@ -18,7 +18,7 @@ class ClassroomController {
             }
 
             json {
-                render Classroom.list() as JSON
+                render Classroom.list() as GSON
             }
         }
     }
